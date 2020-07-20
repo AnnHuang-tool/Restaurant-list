@@ -20,8 +20,8 @@
 <div class="container mt-5">
   <div class="row">
     <div class="col-md-10 col-12 mx-auto">
-      {{#each restaurants}}
       <div class="card-columns">
+        {{#each restaurants}}
         <a href="/restaurants/{{this.id}}" class="text-secondary">
           <div class="card mb-3">
             <img class="card-img-top" src="{{this.image}}" alt="Sababa 沙巴巴中東美食">
@@ -40,9 +40,8 @@
             </div>
           </div>
         </a>
-
+        {{/each}}
       </div>
-      {{/each}}
     </div>
   </div>
 </div>
