@@ -29,11 +29,18 @@ const port = 3000
 const exphbs = require('express-handlebars')
 
 
+
+
+
 // 載入餐廳清單
 const { results } = require('./restaurant.json')
 const Restaurant = require('./views/models/restaurant')
+// 引用 body-parser
+const bodyParser = require('body-parser')
 // const restaurantlist = require('./restaurant.json')
 
+// 用 app.use 規定每一筆請求都需要透過 body-parser 進行前置處理
+app.use(bodyParser.urlencoded({ extended: true }))
 
 // setting template engine (載入之後，要告訴 Express：麻煩幫我把樣板引擎交給 express-handlebars)
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }))
@@ -45,6 +52,18 @@ app.set('view engine', 'handlebars')
 app.use(express.static('public'))
 
 // routes setting
+
+app.get('/restaurants/new', (req, res) => {
+  return res.render('new')
+})
+
+app.post('/restaurants', (req, res) => {
+  const { name, name_en, category, image, location, phone, google_map, rating, description } = req.body
+  return Restaurant.create({ name, name_en, category, image, location, phone, google_map, rating, description })
+    .then(() => res.redirect('/')
+      .catch(error => console.log(error)))
+})
+
 app.get('/', (req, res) => {
   Restaurant.find()
     .lean()
@@ -53,6 +72,7 @@ app.get('/', (req, res) => {
   // past the movie data into 'index' partial template
   // res.render('index', { restaurants: results })
 })
+
 app.get('/restaurants/:restaurant_id', (req, res) => {
   const restaurant = results.find(restaurant => restaurant.id.toString() === req.params.restaurant_id)
   res.render('show', { restaurant: restaurant })
