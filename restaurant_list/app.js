@@ -31,6 +31,7 @@ const exphbs = require('express-handlebars')
 
 // 載入餐廳清單
 const { results } = require('./restaurant.json')
+const Restaurant = require('./views/models/restaurant')
 // const restaurantlist = require('./restaurant.json')
 
 
@@ -45,8 +46,12 @@ app.use(express.static('public'))
 
 // routes setting
 app.get('/', (req, res) => {
+  Restaurant.find()
+    .lean()
+    .then(restaurant => res.render('index', { restaurant }))
+    .catch(error => console.error(error))
   // past the movie data into 'index' partial template
-  res.render('index', { restaurants: results })
+  // res.render('index', { restaurants: results })
 })
 app.get('/restaurants/:restaurant_id', (req, res) => {
   const restaurant = results.find(restaurant => restaurant.id.toString() === req.params.restaurant_id)
