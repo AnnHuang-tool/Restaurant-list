@@ -53,6 +53,16 @@ app.use(express.static('public'))
 
 // routes setting
 
+app.get('/', (req, res) => {
+  Restaurant.find()
+    .lean()
+    .then(restaurant => res.render('index', { restaurant }))
+    .catch(error => console.error(error))
+  // past the movie data into 'index' partial template
+  // res.render('index', { restaurants: results })
+})
+
+// 新增
 app.get('/restaurants/new', (req, res) => {
   return res.render('new')
 })
@@ -64,13 +74,22 @@ app.post('/restaurants', (req, res) => {
       .catch(error => console.log(error)))
 })
 
-app.get('/', (req, res) => {
-  Restaurant.find()
+// 瀏覽
+app.get('/restaurants/:id', (req, res) => {
+  const id = req.params.id
+  return Restaurant.findById(id)
     .lean()
-    .then(restaurant => res.render('index', { restaurant }))
-    .catch(error => console.error(error))
-  // past the movie data into 'index' partial template
-  // res.render('index', { restaurants: results })
+    .then(restaurant => res.render('show', { restaurant }))
+    .catch(error => console.log(error))
+})
+
+// 刪除
+app.delete('/restaurants/:id', (req, res) => {
+  const id = req.params.id
+  return Restaurant.findById(id)
+    .then(restaurant => restaurant.remove())
+    .then(() => res.redirect('/'))
+    .catch(error => console.log(error))
 })
 
 app.get('/restaurants/:restaurant_id', (req, res) => {
