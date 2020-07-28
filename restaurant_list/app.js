@@ -97,7 +97,7 @@ app.post('/restaurants/:id', (req, res) => {
   const id = req.params.id
   const { name, name_en, category, image, location, phone, google_map, rating, description } = req.body
   return Restaurant.findById(id)
-    .then(restaurants => {
+    .then(restaurant => {
       restaurant.name = name
       restaurant.name_en = name_en
       restaurant.category = category
@@ -116,7 +116,7 @@ app.post('/restaurants/:id', (req, res) => {
 
 
 // 刪除
-app.post('/restaurants/:restaurant_id/delete', (req, res) => {
+app.post('/restaurants/:id/delete', (req, res) => {
   const id = req.params.id
   return Restaurant.findById(id)
     .then(restaurants => restaurants.remove())
