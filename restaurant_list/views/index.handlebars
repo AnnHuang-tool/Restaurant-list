@@ -39,9 +39,14 @@
                 {{this.rating}}
                 <i class="fas fa-star fa-xs"></i>
               </span>
-              <a href="./restaurants/{{ this._id }}">detail</a>
 
-              <form action="/restaurants/{{ this._id }}?_method=DELETE" method="post">
+              <a href="./restaurants/{{this._id}}/edit" method="get" style="text-decoration: none;">
+                <button type="button" class="btn btn-success btn-sm">修改</button>
+              </a>
+
+
+
+              <form action="./restaurants/{{ this._id }}/delete" method="post">
                 <button class="btn btn-outline-danger btn-sm" type="submit">刪除</button>
               </form>
 

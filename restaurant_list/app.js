@@ -56,7 +56,7 @@ app.use(express.static('public'))
 app.get('/', (req, res) => {
   Restaurant.find()
     .lean()
-    .then(restaurant => res.render('index', { restaurant }))
+    .then(restaurants => res.render('index', { restaurants }))
     .catch(error => console.error(error))
   // past the movie data into 'index' partial template
   // res.render('index', { restaurants: results })
@@ -79,7 +79,7 @@ app.get('/restaurants/:id', (req, res) => {
   const id = req.params.id
   return Restaurant.findById(id)
     .lean()
-    .then(restaurant => res.render('show', { restaurant }))
+    .then(restaurants => res.render('show', { restaurants }))
     .catch(error => console.log(error))
 })
 
@@ -88,7 +88,7 @@ app.get('/restaurants/:id/edit', (req, res) => {
   const id = req.params.id
   return Restaurant.findById(id)
     .lean()
-    .then((restaurant) => res.render('edit', { restaurant }))
+    .then((restaurants) => res.render('edit', { restaurants }))
     .catch(error => console.log(error))
 })
 
@@ -97,7 +97,7 @@ app.post('/restaurants/:id', (req, res) => {
   const id = req.params.id
   const { name, name_en, category, image, location, phone, google_map, rating, description } = req.body
   return Restaurant.findById(id)
-    .then(restaurant => {
+    .then(restaurants => {
       restaurant.name = name
       restaurant.name_en = name_en
       restaurant.category = category
@@ -116,10 +116,10 @@ app.post('/restaurants/:id', (req, res) => {
 
 
 // 刪除
-app.delete('/restaurants/:id', (req, res) => {
+app.post('/restaurants/:restaurant_id/delete', (req, res) => {
   const id = req.params.id
   return Restaurant.findById(id)
-    .then(restaurant => restaurant.remove())
+    .then(restaurants => restaurants.remove())
     .then(() => res.redirect('/'))
     .catch(error => console.log(error))
 })
