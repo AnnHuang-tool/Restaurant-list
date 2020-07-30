@@ -1,1 +1,57 @@
-<h1>123</h1>
+<form action="/restaurants" method="POST" style="margin: 20px 20px;">
+  <div class="form-row">
+    <div class="col-md-4 mb-3">
+      <label>Name-CHT</label>
+      <input type="text" class="form-control" placeholder="name" name="name" required>
+    </div>
+    <div class="col-md-4 mb-3">
+      <label for="validationServer02">Name-EN</label>
+      <input type="text" class="form-control" placeholder="name-en" name="name_en">
+    </div>
+  </div>
+
+  <div class="col-md-4 mb-3">
+    <label>Phone</label>
+    <input type="text" class="form-control" placeholder="phone" name="phone">
+  </div>
+  <div class="col-md-4 mb-3">
+    <label>Image</label>
+    <input type="text" class="form-control" placeholder="image" name="image"
+      value="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1567&q=80">
+  </div>
+
+  <div class="col-md-4 mb-3">
+    <label>Location</label>
+    <input type="text" class="form-control" placeholder="location" name="location">
+  </div>
+  <div class="col-md-4 mb-3">
+    <label>google_map</label>
+    <input type="text" class="form-control" placeholder="google_map" name="google_map">
+  </div>
+  <div class="col-md-4 mb-3">
+    <label>Rating</label>
+    <input type="number" class="form-control" placeholder="rating" name="rating" min="0" max="10" step="0.1" required>
+  </div>
+  <div class="col-md-4 mb-3">
+    <label>Description</label>
+    <input type="text" class="form-control" placeholder="description" name="description">
+  </div>
+  </div>
+
+  <div class="form-group">
+    <select class="custom-select" name="category" required>
+      <option value="">Category menu</option>
+      <option value="台式料理" selected>台式料理</option>
+      <option value="日本料理">日本料理</option>
+      <option value="義式餐廳">義式餐廳</option>
+      <option value="美式餐廳">美式餐廳</option>
+      <option value="酒吧">酒吧</option>
+      <option value="咖啡廳">咖啡廳</option>
+      <option value="中東料理">中東料理</option>
+      <option value="異國料理">異國料理</option>
+    </select>
+  </div>
+
+  <button type="submit" class="btn btn-info">Create</button>
+  <a href="/" class="btn btn-info">Back</a>
+</form>
