@@ -1,4 +1,81 @@
-<div class="container">
+<form action="/restaurants/{{ restaurant._id }}/edit" method="POST">
+
+
+  <input type="text" placeholder="name" name="name" value="{{ restaurant.name }}">
+  <input type="text" placeholder="name_en" name="name_en" value="{{ restaurant.name_en }}">
+
+  <div class="col-sm-2 text-secondary text-right pr-0">
+    類別：
+    <input type="text" placeholder="category" name="category" value="{{ restaurant.category }}">
+  </div>
+
+
+  <div class="col-sm-2 text-secondary text-right pr-0">
+    地址：
+    <input type="text" placeholder="location" name="location" value="{{ restaurant.location }}">
+  </div>
+
+  <div class="col-sm-2 text-secondary text-right pr-0">
+    電話：
+
+
+    <input type="text" placeholder="phone" name="phone" value="{{ restaurant.phone }}">
+  </div>
+
+  <div class="col-sm-2 text-secondary text-right pr-0">
+    google map：
+
+    <input type="text" placeholder="google_map" name="google_map" value="{{ restaurant.google_map }}">
+  </div>
+
+
+
+
+
+
+  <div class="col-sm-2 text-secondary text-right pr-0">
+    評價：
+
+    <input type="text" placeholder="rating" name=" rating" value="{{ restaurant.rating }}">
+  </div>
+
+  <div class="col-sm-2 text-secondary text-right pr-0">
+    簡介：
+
+    <textarea name="description" rows="3">{{ restaurant.description }}</textarea>
+  </div>
+
+
+  <div class="col-sm-2 text-secondary text-right pr-0">
+    圖片：
+
+
+    <input type="text" placeholder="image" name="image" value="{{ restaurant.image }}">
+  </div>
+
+  <div class="row">
+    <img class="rounded mx-auto d-block w-100" src="{{ restaurant.image }}" alt="{{ restaurant.name }}"
+      style="max-width: 300px;">
+  </div>
+
+
+
+  <button type="submit">Save</button>
+  <a href="/">back</a>
+</form>
+
+
+
+
+
+
+
+
+
+
+
+
+{{!-- <div class="container">
   <form action="/restaurants/{{ restaurant._id }}?_method=PUT" method="post">
     <h1 class="mb-1 restaurant-show-title">
       <input type="text" placeholder="name" name="name" value="{{ restaurant.name }}">
@@ -56,4 +133,4 @@
         style="max-width: 600px;">
     </div>
   </form>
-</div>
+</div> --}}

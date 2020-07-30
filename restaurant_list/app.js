@@ -79,7 +79,7 @@ app.get('/restaurants/:id', (req, res) => {
   const id = req.params.id
   return Restaurant.findById(id)
     .lean()
-    .then(restaurants => res.render('show', { restaurants }))
+    .then(restaurant => res.render('show', { restaurant }))
     .catch(error => console.log(error))
 })
 
@@ -88,12 +88,12 @@ app.get('/restaurants/:id/edit', (req, res) => {
   const id = req.params.id
   return Restaurant.findById(id)
     .lean()
-    .then((restaurants) => res.render('edit', { restaurants }))
+    .then((restaurant) => res.render('edit', { restaurant }))
     .catch(error => console.log(error))
 })
 
-
-app.post('/restaurants/:id', (req, res) => {
+// Update 功能：資料庫修改特定 res 的資料
+app.post('/restaurants/:id/edit', (req, res) => {
   const id = req.params.id
   const { name, name_en, category, image, location, phone, google_map, rating, description } = req.body
   return Restaurant.findById(id)
