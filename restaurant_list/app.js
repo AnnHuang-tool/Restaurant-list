@@ -1,27 +1,27 @@
 // require packages used in the project
 const express = require('express')
 // 載入 mongoose
-const mongoose = require('mongoose')
+// const mongoose = require('mongoose')
 
-const app = express()
+// const app = express()
 
-// 設定連線到 mongoDB
-mongoose.connect('mongodb://localhost/restaurant-list', { useNewUrlParser: true, useUnifiedTopology: true })
+// // 設定連線到 mongoDB
+// mongoose.connect('mongodb://localhost/restaurant-list', { useNewUrlParser: true, useUnifiedTopology: true })
 
-// 取得資料庫連線狀態
-const db = mongoose.connection
+// // 取得資料庫連線狀態
+// const db = mongoose.connection
 
 
 
-// 連線異常
-db.on('error', () => {
-  console.log('mongodb error')
-})
+// // 連線異常
+// db.on('error', () => {
+//   console.log('mongodb error')
+// })
 
-// 連線成功
-db.once('open', () => {
-  console.log('mongodb connected!')
-})
+// // 連線成功
+// db.once('open', () => {
+//   console.log('mongodb connected!')
+// })
 
 const port = 3000
 
@@ -30,7 +30,7 @@ const exphbs = require('express-handlebars')
 
 // / 引用路由器
 const routes = require('./routes')
-
+require('./config/mongoose')
 
 
 // 載入餐廳清單
