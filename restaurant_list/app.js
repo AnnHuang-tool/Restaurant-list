@@ -38,6 +38,8 @@ const Restaurant = require('./views/models/restaurant')
 // 引用 body-parser
 const bodyParser = require('body-parser')
 // const restaurantlist = require('./restaurant.json')
+// 載入 method-override
+const methodOverride = require('method-override')
 
 // 用 app.use 規定每一筆請求都需要透過 body-parser 進行前置處理
 app.use(bodyParser.urlencoded({ extended: true }))
@@ -50,6 +52,9 @@ app.set('view engine', 'handlebars')
 
 // setting static files
 app.use(express.static('public'))
+
+// 設定每一筆請求都會透過 methodOverride 進行前置處理
+app.use(methodOverride('_method'))
 
 // routes setting
 
@@ -84,7 +89,7 @@ app.get('/restaurants/:id', (req, res) => {
 })
 
 // 編輯修改
-app.get('/restaurants/:id/edit', (req, res) => {
+app.put('/restaurants/:id', (req, res) => {
   const id = req.params.id
   return Restaurant.findById(id)
     .lean()
@@ -116,7 +121,7 @@ app.post('/restaurants/:id/edit', (req, res) => {
 
 
 // 刪除
-app.post('/restaurants/:id/delete', (req, res) => {
+app.delete('/restaurants/:id', (req, res) => {
   const id = req.params.id
   return Restaurant.findById(id)
     .then(restaurants => restaurants.remove())
