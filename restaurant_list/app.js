@@ -28,18 +28,22 @@ const port = 3000
 // require express-handlebars here
 const exphbs = require('express-handlebars')
 
-
+// / 引用路由器
+const routes = require('./routes')
 
 
 
 // 載入餐廳清單
 const { results } = require('./restaurant.json')
 const Restaurant = require('./views/models/restaurant')
+
 // 引用 body-parser
 const bodyParser = require('body-parser')
 // const restaurantlist = require('./restaurant.json')
 // 載入 method-override
 const methodOverride = require('method-override')
+
+
 
 // 用 app.use 規定每一筆請求都需要透過 body-parser 進行前置處理
 app.use(bodyParser.urlencoded({ extended: true }))
@@ -56,93 +60,96 @@ app.use(express.static('public'))
 // 設定每一筆請求都會透過 methodOverride 進行前置處理
 app.use(methodOverride('_method'))
 
+// 將 request 導入路由器
+app.use(routes)
+
 // routes setting
 
-app.get('/', (req, res) => {
-  Restaurant.find()
-    .lean()
-    .then(restaurants => res.render('index', { restaurants }))
-    .catch(error => console.error(error))
-  // past the movie data into 'index' partial template
-  // res.render('index', { restaurants: results })
-})
+// app.get('/', (req, res) => {
+//   Restaurant.find()
+//     .lean()
+//     .then(restaurants => res.render('index', { restaurants }))
+//     .catch(error => console.error(error))
+//   // past the movie data into 'index' partial template
+//   // res.render('index', { restaurants: results })
+// })
 
-// 新增
-app.get('/restaurants/new', (req, res) => {
-  return res.render('new')
-})
+// // 新增
+// app.get('/restaurants/new', (req, res) => {
+//   return res.render('new')
+// })
 
-app.post('/restaurants', (req, res) => {
-  const { name, name_en, category, image, location, phone, google_map, rating, description } = req.body
-  return Restaurant.create({ name, name_en, category, image, location, phone, google_map, rating, description })
-    .then(() => res.redirect('/')
-      .catch(error => console.log(error)))
-})
+// app.post('/restaurants', (req, res) => {
+//   const { name, name_en, category, image, location, phone, google_map, rating, description } = req.body
+//   return Restaurant.create({ name, name_en, category, image, location, phone, google_map, rating, description })
+//     .then(() => res.redirect('/')
+//       .catch(error => console.log(error)))
+// })
 
-// 瀏覽
-app.get('/restaurants/:id', (req, res) => {
-  const id = req.params.id
-  return Restaurant.findById(id)
-    .lean()
-    .then(restaurant => res.render('show', { restaurant }))
-    .catch(error => console.log(error))
-})
+// // 瀏覽
+// app.get('/restaurants/:id', (req, res) => {
+//   const id = req.params.id
+//   return Restaurant.findById(id)
+//     .lean()
+//     .then(restaurant => res.render('show', { restaurant }))
+//     .catch(error => console.log(error))
+// })
 
-// 編輯修改
-app.put('/restaurants/:id', (req, res) => {
-  const id = req.params.id
-  return Restaurant.findById(id)
-    .lean()
-    .then((restaurant) => res.render('edit', { restaurant }))
-    .catch(error => console.log(error))
-})
+// // 編輯修改
+// app.get('/restaurants/:id/edit', (req, res) => {
+//   const id = req.params.id
+//   return Restaurant.findById(id)
+//     .lean()
+//     .then((restaurant) => res.render('edit', { restaurant }))
+//     .catch(error => console.log(error))
+// })
 
-// Update 功能：資料庫修改特定 res 的資料
-app.post('/restaurants/:id/edit', (req, res) => {
-  const id = req.params.id
-  const { name, name_en, category, image, location, phone, google_map, rating, description } = req.body
-  return Restaurant.findById(id)
-    .then(restaurant => {
-      restaurant.name = name
-      restaurant.name_en = name_en
-      restaurant.category = category
-      restaurant.image = image
-      restaurant.location = location
-      restaurant.phone = phone
-      restaurant.google_map = google_map
-      restaurant.rating = rating
-      restaurant.description = description
-      return restaurant.save()
-    })
-    .then(() => res.redirect(`/restaurants/${id}`))
-    .catch(error => console.log(error))
-})
+// // Update 功能：資料庫修改特定 res 的資料
+// app.put('/restaurants/:id', (req, res) => {
+//   const id = req.params.id
+//   const { name, name_en, category, image, location, phone, google_map, rating, description } = req.body
+//   return Restaurant.findById(id)
+//     .then(restaurant => {
+//       restaurant.name = name
+//       restaurant.name_en = name_en
+//       restaurant.category = category
+//       restaurant.image = image
+//       restaurant.location = location
+//       restaurant.phone = phone
+//       restaurant.google_map = google_map
+//       restaurant.rating = rating
+//       restaurant.description = description
+//       return restaurant.save()
+//     })
+//     .then(() => res.redirect(`/restaurants/${id}`))
+//     .catch(error => console.log(error))
+// })
 
 
 
-// 刪除
-app.delete('/restaurants/:id', (req, res) => {
-  const id = req.params.id
-  return Restaurant.findById(id)
-    .then(restaurants => restaurants.remove())
-    .then(() => res.redirect('/'))
-    .catch(error => console.log(error))
-})
+// // 刪除
+// app.delete('/restaurants/:id', (req, res) => {
+//   const id = req.params.id
+//   return Restaurant.findById(id)
+//     .then(restaurants => restaurants.remove())
+//     .then(() => res.redirect('/'))
+//     .catch(error => console.log(error))
+// })
 
-app.get('/restaurants/:restaurant_id', (req, res) => {
-  const restaurant = results.find(restaurant => restaurant.id.toString() === req.params.restaurant_id)
-  res.render('show', { restaurant: restaurant })
-})
+// app.get('/restaurants/:restaurant_id', (req, res) => {
+//   const restaurant = results.find(restaurant => restaurant.id.toString() === req.params.restaurant_id)
+//   res.render('show', { restaurant: restaurant })
+// })
 
-app.get('/search', (req, res) => {
-  const keyword = req.query.keyword
-  const restaurants = results.filter(restaurants => {
-    return restaurants.name.toLowerCase().includes(keyword.toLowerCase()) ||
-      restaurants.category.toLowerCase().includes(keyword.toLowerCase())
-  })
-  res.render('index', { restaurants, keyword })
-}
-)
+// app.get('/search', (req, res) => {
+//   const keyword = req.query.keyword
+//   const restaurants = results.filter(restaurants => {
+//     return restaurants.name.toLowerCase().includes(keyword.toLowerCase()) ||
+//       restaurants.category.toLowerCase().includes(keyword.toLowerCase())
+//   })
+//   res.render('index', { restaurants, keyword })
+// }
+// )
 
 // start and listen on the Express server
 app.listen(port, () => {
