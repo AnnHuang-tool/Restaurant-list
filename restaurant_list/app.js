@@ -3,7 +3,7 @@ const express = require('express')
 // 載入 mongoose
 // const mongoose = require('mongoose')
 
-// const app = express()
+const app = express()
 
 // // 設定連線到 mongoDB
 // mongoose.connect('mongodb://localhost/restaurant-list', { useNewUrlParser: true, useUnifiedTopology: true })
@@ -35,7 +35,7 @@ require('./config/mongoose')
 
 // 載入餐廳清單
 const { results } = require('./restaurant.json')
-const Restaurant = require('./views/models/restaurant')
+// const Restaurant = require('./views/models/restaurant')
 
 // 引用 body-parser
 const bodyParser = require('body-parser')

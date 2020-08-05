@@ -2,13 +2,12 @@
 const express = require('express')
 const router = express.Router()
 // 引用 restaurant model
-const Restaurant = require('./views/models/restaurant')
+const Restaurant = require('../../views/models/restaurant')
 // 定義首頁路由
 
 router.get('/', (req, res) => {
   Restaurant.find()
     .lean()
-    .sort({ _id: 'asc' }) // desc
     .then(restaurants => res.render('index', { restaurants }))
     .catch(error => console.error(error))
   // past the movie data into 'index' partial template
