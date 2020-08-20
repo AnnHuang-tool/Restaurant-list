@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const Restaurant = require('../../views/models/restaurant')
+const Restaurant = require('../../models/restaurant')
 
 // 新增
 router.get('/new', (req, res) => {

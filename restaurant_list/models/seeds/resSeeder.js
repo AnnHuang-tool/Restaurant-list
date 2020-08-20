@@ -1,5 +1,5 @@
 // const mongoose = require('mongoose')
-const Restaurant = require('../restaurant') // 載入  model
+const Restaurant = require('../../models/restaurant') // 載入  model
 // mongoose.connect('mongodb://localhost/restaurant-list', { useNewUrlParser: true, useUnifiedTopology: true })
 
 // const db = mongoose.connection
