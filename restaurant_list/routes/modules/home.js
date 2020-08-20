@@ -13,5 +13,22 @@ router.get('/', (req, res) => {
   // past the movie data into 'index' partial template
   // res.render('index', { restaurants: results })
 })
+
+
+
+// search restaurants by the name
+router.get('/search', (req, res) => {
+  const keyword = req.query.keyword
+  Restaurant.find()
+    .lean()
+    .then(restaurants => {
+      const Searched = restaurants.filter(restaurant => {
+        return restaurant.name.toLowerCase().includes(keyword.toLowerCase()) || restaurant.category.includes(keyword)
+      })
+      return res.render('index', { restaurants: Searched, keyword })
+    })
+    .catch(error => console.log(error))
+})
+
 // 匯出路由模組
 module.exports = router
