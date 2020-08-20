@@ -69,13 +69,13 @@ router.get('/:restaurant_id', (req, res) => {
   res.render('show', { restaurant: restaurant })
 })
 
-router.get('/search', (req, res) => {
-  const keyword = req.query.keyword
-  const restaurants = results.filter(restaurants => {
-    return restaurants.name.toLowerCase().includes(keyword.toLowerCase()) ||
-      restaurants.category.toLowerCase().includes(keyword.toLowerCase())
-  })
-  res.render('index', { restaurants, keyword })
-}
-)
+// router.get('/search', (req, res) => {
+//   const keyword = req.query.keyword
+//   const restaurants = results.filter(restaurants => {
+//     return restaurants.name.toLowerCase().includes(keyword.toLowerCase()) ||
+//       restaurants.category.toLowerCase().includes(keyword.toLowerCase())
+//   })
+//   res.render('index', { restaurants, keyword })
+// }
+// )
 module.exports = router
