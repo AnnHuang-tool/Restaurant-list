@@ -2,7 +2,7 @@
 const express = require('express')
 // 載入 mongoose
 // const mongoose = require('mongoose')
-
+const session = require('express-session')
 const app = express()
 
 // // 設定連線到 mongoDB
@@ -53,6 +53,12 @@ app.engine('handlebars', exphbs({ defaultLayout: 'main' }))
 app.set('view engine', 'handlebars')
 
 // app.set：透過這個方法告訴 Express 說要設定的 view engine 是 handlebars
+
+app.use(session({
+  secret: 'ThisIsMySecret',
+  resave: false,
+  saveUninitialized: true
+}))
 
 // setting static files
 app.use(express.static('public'))
