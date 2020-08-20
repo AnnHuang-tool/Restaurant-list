@@ -6,8 +6,10 @@ const Restaurant = require('../../models/restaurant')
 // 定義首頁路由
 
 router.get('/', (req, res) => {
-  Restaurant.find()
+  const userId = req.user._id   // 變數設定
+  Restaurant.find({ userId })
     .lean()
+    .sort({ _id: 'asc' })
     .then(restaurants => res.render('index', { restaurants }))
     .catch(error => console.error(error))
   // past the movie data into 'index' partial template
