@@ -24,7 +24,7 @@ const usePassport = require('./config/passport')
 //   console.log('mongodb connected!')
 // })
 
-const port = 3000
+const port = process.env.PORT
 
 // require express-handlebars here
 const exphbs = require('express-handlebars')
@@ -45,7 +45,9 @@ const bodyParser = require('body-parser')
 const methodOverride = require('method-override')
 
 const flash = require('connect-flash')   // 引用套件
-
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config()
+}
 
 // 用 app.use 規定每一筆請求都需要透過 body-parser 進行前置處理
 app.use(bodyParser.urlencoded({ extended: true }))
@@ -57,7 +59,7 @@ app.set('view engine', 'handlebars')
 // app.set：透過這個方法告訴 Express 說要設定的 view engine 是 handlebars
 
 app.use(session({
-  secret: 'ThisIsMySecret',
+  secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: true
 }))

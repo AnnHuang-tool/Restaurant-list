@@ -9,6 +9,8 @@ const { authenticator } = require('../middleware/auth')  // 掛載 middleware
 
 const users = require('./modules/users')
 
+const auth = require('./modules/auth')   // 引用模組
+
 // 引入 home 模組程式碼
 const home = require('./modules/home')
 
@@ -25,7 +27,7 @@ router.use('/restaurants', authenticator, restaurants)// 加入驗證程序
 router.use('/users', users)
 // 匯出路由器
 
-
+router.use('/auth', auth)  // 掛載模組
 // 將網址結構符合 / 字串的 request 導向 home 模組 
 router.use('/', authenticator, home) // 加入驗證程序放到最下面
 
