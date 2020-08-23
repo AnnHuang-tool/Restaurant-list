@@ -4,6 +4,10 @@ const express = require('express')
 // const mongoose = require('mongoose')
 const session = require('express-session')
 const app = express()
+
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config()
+}
 // 載入設定檔，要寫在 express-session 以後
 const usePassport = require('./config/passport')
 // // 設定連線到 mongoDB
@@ -45,9 +49,8 @@ const bodyParser = require('body-parser')
 const methodOverride = require('method-override')
 
 const flash = require('connect-flash')   // 引用套件
-if (process.env.NODE_ENV !== 'production') {
-  require('dotenv').config()
-}
+
+
 
 // 用 app.use 規定每一筆請求都需要透過 body-parser 進行前置處理
 app.use(bodyParser.urlencoded({ extended: true }))
