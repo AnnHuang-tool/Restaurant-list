@@ -5,7 +5,7 @@ if (process.env.NODE_ENV !== 'production') {
 const Restaurant = require('../restaurant')
 const User = require('../user')
 const db = require('../../config/mongoose')
-const restaurantsList = require('../../restaurant.json');
+const restaurantList = require('../../restaurant.json');
 const SEED_USER = [
   {
     name: 'user1',
@@ -35,11 +35,11 @@ db.once('open', () => {
           const userId = { userId: user._id }
           let restaurantOwner = []
           restaurantList.results.forEach(data => {
-            if (user.name === 'User1' && data.id <= 3) {
+            if (user.name === 'user1' && data.id <= 3) {
               data = Object.assign(data, userId)
               restaurantOwner.push(data)
             }
-            else if (user.name === 'User2' && data.id > 3) {
+            else if (user.name === 'user2' && data.id > 3) {
               data = Object.assign(data, userId)
               restaurantOwner.push(data)
             }

@@ -28,7 +28,7 @@ const usePassport = require('./config/passport')
 //   console.log('mongodb connected!')
 // })
 
-const port = process.env.PORT
+const PORT = process.env.PORT
 
 // require express-handlebars here
 const exphbs = require('express-handlebars')
@@ -180,6 +180,11 @@ app.use(routes)
 // )
 
 // start and listen on the Express server
-app.listen(port, () => {
-  console.log(`Express is listening on localhost:${port}`)
+// app.listen(port, () => {
+//   console.log(`Express is listening on localhost:${port}`)
+// })
+
+// 設定應用程式監聽的埠號
+app.listen(PORT, () => {
+  console.log('App is running on http://localhost:3000')
 })
