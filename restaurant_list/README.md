@@ -10,6 +10,17 @@
 
 ・點擊我的餐廳清單可以回到首頁。
 
+## 測試帳號
+
+帳號 1：
+email: user1@example.com
+password: 12345678
+帳號 2：
+email: user2@example.com
+password: 12345678
+
+
+
 ## 安裝方式 
 1. 開啟終端機，進入至欲儲存此專案的資料夾，並clone此專案
 
@@ -34,6 +45,8 @@
 成功啟動後，終端機會顯示 Express is listening on localhost:3000
 
 請在瀏覽器網址輸入` localhost:3000 `，即可開啟
+
+*需要創建 .env.development 以便在本機端開啟伺服器
 
 
 ## 開發環境
