@@ -2,12 +2,13 @@
 const express = require('express')
 // 載入 mongoose
 // const mongoose = require('mongoose')
-const session = require('express-session')
+
 const app = express()
 
 if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config()
 }
+const session = require('express-session')
 // 載入設定檔，要寫在 express-session 以後
 const usePassport = require('./config/passport')
 // // 設定連線到 mongoDB
@@ -39,7 +40,7 @@ require('./config/mongoose')
 
 
 // 載入餐廳清單
-const { results } = require('./restaurant.json')
+// const { results } = require('./restaurant.json')
 // const Restaurant = require('./views/models/restaurant')
 
 // 引用 body-parser
